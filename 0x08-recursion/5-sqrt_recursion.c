@@ -10,15 +10,15 @@
  */
 int sqrt_recursive(int n, int root)
 {
-    int square = root * root;
+	int square = root * root;
 
-    if (square == n)
-        return root;
+	if (square == n)
+		return (root);
 
-    if (square > n)
-        return -1;
+	if (square > n)
+		return (-1);
 
-    return sqrt_recursive(n, root + 1);
+	return (sqrt_recursive(n, root + 1));
 }
 
 /**
@@ -29,8 +29,8 @@ int sqrt_recursive(int n, int root)
  */
 int _sqrt_recursion(int n)
 {
-    if (n < 0)
-        return -1;
+	if (n < 0)
+		return (-1);
 
-    return sqrt_recursive(n, 0);
+	return (sqrt_recursive(n, 0));
 }
