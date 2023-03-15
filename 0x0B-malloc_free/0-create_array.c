@@ -1,3 +1,5 @@
+#include "main.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 void simple_print_buffer(char *buffer, unsigned int size)
