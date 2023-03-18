@@ -1,115 +1,63 @@
 #include <stdlib.h>
-
-/**
- * _isdigit - checks if a character is a digit
- * @c: the character to check
- *
- * Return: 1 if c is a digit, 0 otherwise
- */
-int _isdigit(char c)
-{
-        return (c >= '0' && c <= '9');
-}
-
-/**
- * _strlen - computes the length of a string
- * @s: the string to compute the length of
- *
- * Return: the length of s
- */
-int _strlen(char *s)
-{
-        int i;
-
-        for (i = 0; s[i]; i++)
-                ;
-        return (i);
-}
-
-/**
- * mul - multiplies two positive numbers
- * @num1: the first number to multiply
- * @num2: the second number to multiply
- *
- * Return: a pointer to the result, or NULL if an error occurs
- */
-char *mul(char *num1, char *num2)
-{
-        int len1 = _strlen(num1);
-        int len2 = _strlen(num2);
-        int *res;
-        int i, j, carry, n1, n2, sum;
-
-        if (len1 == 0 || len2 == 0)
-                return (NULL);
-        res = calloc(len1 + len2, sizeof(int));
-        if (!res)
-                return (NULL);
-        for (i = len1 - 1; i >= 0; i--)
-        {
-                carry = 0;
-                n1 = num1[i] - '0';
-                for (j = len2 - 1; j >= 0; j--)
-                {
-                        n2 = num2[j] - '0';
-                        sum = n1 * n2 + res[i + j + 1] + carry;
-                        carry = sum / 10;
-                        res[i + j + 1] = sum % 10;
-                }
-                if (carry)
-                        res[i + j + 1] += carry;
-        }
-        while (*res == 0 && len1 + len2 > 1)
-        {
-                res++;
-                len1 += len2;
-        }
-        num1[len1] = '\0';
-        return (num1);
-}
+#include <stdio.h>
 
 /**
  * main - multiplies two positive numbers
- * @argc: the number of arguments passed to the program
- * @argv: an array of pointers to the arguments
- *
- * Return: 0 if successful, 98 if an error occurs
+ * @argc: number of arguments
+ * @argv: array of arguments
+ * Return: 0 on success, 98 on failure
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-        char *num1, *num2, *result;
+        int i, j, len1, len2, lenres, carry, n1, n2, res;
+        int *result;
 
         if (argc != 3)
         {
                 printf("Error\n");
                 return (98);
         }
-        num1 = argv[1];
-        num2 = argv[2];
-        if (*num1 == '0' || *num2 == '0')
+        for (i = 0; argv[1][i]; i++)
         {
-                printf("0\n");
-                return (0);
-        }
-        for (; *num1; num1++)
-                if (!_isdigit(*num1))
+                if (argv[1][i] < '0' || argv[1][i] > '9')
                 {
                         printf("Error\n");
                         return (98);
                 }
-        for (; *num2; num2++)
-                if (!_isdigit(*num2))
+        }
+        for (i = 0; argv[2][i]; i++)
+        {
+                if (argv[2][i] < '0' || argv[2][i] > '9')
                 {
                         printf("Error\n");
                         return (98);
                 }
-        result = mul(argv[1], argv[2]);
-        if (!result)
-        {
-                printf("Error\n");
-                return (98);
         }
-        printf("%s\n", result);
+        len1 = i;
+        len2 = i;
+        lenres = len1 + len2;
+        result = calloc(lenres, sizeof(int));
+        if (result == NULL)
+                return (1);
+        for (i = len1 - 1; i >= 0; i--)
+        {
+                carry = 0;
+                n1 = argv[1][i] - '0';
+                for (j = len2 - 1; j >= 0; j--)
+                {
+                        n2 = argv[2][j] - '0';
+                        res = n1 * n2 + result[i + j + 1] + carry;
+                        carry = res / 10;
+                        result[i + j + 1] = res % 10;
+                }
+                if (carry)
+                        result[i + j + 1] += carry;
+        }
+        for (i = 0; result[i] == 0 && i < lenres - 1; i++)
+                ;
+        for (; i < lenres; i++)
+                printf("%d", result[i]);
+        printf("\n");
         free(result);
         return (0);
 }
