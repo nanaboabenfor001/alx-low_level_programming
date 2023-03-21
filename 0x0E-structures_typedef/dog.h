@@ -51,4 +51,21 @@ void print_dog(struct dog *d);
  */
 dog_t *new_dog(char *name, float age, char *owner);
 
+/**
+ * _strlen - function that returns the length of a string
+ * @s: string to count
+ *
+ * Return: length of s
+ */
+int _strlen(char *s);
+
+/**
+ * _strcpy - function that copies a string to a buffer
+ * @dest: buffer to copy to
+ * @src: string to copy
+ *
+ * Return: pointer to dest
+ */
+char *_strcpy(char *dest, char *src);
+
 #endif /* DOG_H */
