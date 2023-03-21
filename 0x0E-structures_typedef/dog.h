@@ -9,16 +9,23 @@
  *
  * Description: struct dog defines a dog's name, age and owner
  */
-typedef struct dog
+struct dog
 {
 	char *name;
 	float age;
 	char *owner;
 };
 
-typedef struct dog dog_t;
+/**
+ * init_dog - function that initializes a variable of type struct dog
+ * @d: pointer to struct dog to initialize
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
+ *
+ * Return: void
+ */
 
 void init_dog(struct dog *d, char *name, float age, char *owner);
-void print_dog(struct dog *d);
 
 #endif /* DOG_H */
