@@ -1,35 +1,31 @@
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
-
-int _putchar(char c);
+#include <string.h>
 
 /**
- * main - prints the name of the file it was compiled from
+ * main - Entry point of the program
  *
- * Return: Always 0
+ * Description: This program prints the name of the source file it was compiled
+ * from to stdout using only `malloc()`, `free()`, and `exit()`.
+ *
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
-    int i = 0;
-    char *file_name = __FILE__;
+    const char *filename = __FILE__;
+    size_t len = strlen(filename);
+    char *str = malloc(len + 2);
 
-    while (file_name[i] != '\0')
+    if (str == NULL)
     {
-        _putchar(file_name[i]);
-        i++;
+        exit(EXIT_FAILURE);
     }
-    _putchar('\n');
-    return (0);
-}
 
-/**
- * _putchar - writes a character to stdout
- *
- * @c: The character to print
- *
- * Return: 1 on success, -1 on error
- */
-int _putchar(char c)
-{
-    return (write(1, &c, 1));
+    memcpy(str, filename, len);
+    str[len] = '\n';
+    str[len + 1] = '\0';
+    fputs(str, stdout);
+    free(str);
+
+    return (EXIT_SUCCESS);
 }
